@@ -10,33 +10,129 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ShellRouteImport } from './routes/_shell'
+import { Route as ShellAboutRouteImport } from './routes/_shell.about'
+import { Route as ShellAdminRouteImport } from './routes/_shell.admin'
+import { Route as ShellDashboardRouteImport } from './routes/_shell.dashboard'
+import { Route as ShellProfileRouteImport } from './routes/_shell.profile'
+import { Route as ShellReportRouteImport } from './routes/_shell.report'
+import { Route as ShellComplaintsIndexRouteImport } from './routes/_shell.complaints.index'
+import { Route as ShellComplaintsIdRouteImport } from './routes/_shell.complaints.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ShellRoute = ShellRouteImport.update({
+  id: '/_shell',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShellAboutRoute = ShellAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellAdminRoute = ShellAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellDashboardRoute = ShellDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellProfileRoute = ShellProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellReportRoute = ShellReportRouteImport.update({
+  id: '/report',
+  path: '/report',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellComplaintsIndexRoute = ShellComplaintsIndexRouteImport.update({
+  id: '/complaints/',
+  path: '/complaints/',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellComplaintsIdRoute = ShellComplaintsIdRouteImport.update({
+  id: '/complaints/$id',
+  path: '/complaints/$id',
+  getParentRoute: () => ShellRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof ShellAboutRoute
+  '/admin': typeof ShellAdminRoute
+  '/dashboard': typeof ShellDashboardRoute
+  '/profile': typeof ShellProfileRoute
+  '/report': typeof ShellReportRoute
+  '/complaints/$id': typeof ShellComplaintsIdRoute
+  '/complaints/': typeof ShellComplaintsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof ShellAboutRoute
+  '/admin': typeof ShellAdminRoute
+  '/dashboard': typeof ShellDashboardRoute
+  '/profile': typeof ShellProfileRoute
+  '/report': typeof ShellReportRoute
+  '/complaints/$id': typeof ShellComplaintsIdRoute
+  '/complaints': typeof ShellComplaintsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_shell': typeof ShellRouteWithChildren
+  '/_shell/about': typeof ShellAboutRoute
+  '/_shell/admin': typeof ShellAdminRoute
+  '/_shell/dashboard': typeof ShellDashboardRoute
+  '/_shell/profile': typeof ShellProfileRoute
+  '/_shell/report': typeof ShellReportRoute
+  '/_shell/complaints/$id': typeof ShellComplaintsIdRoute
+  '/_shell/complaints/': typeof ShellComplaintsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/dashboard'
+    | '/profile'
+    | '/report'
+    | '/complaints/$id'
+    | '/complaints/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/dashboard'
+    | '/profile'
+    | '/report'
+    | '/complaints/$id'
+    | '/complaints'
+  id:
+    | '__root__'
+    | '/'
+    | '/_shell'
+    | '/_shell/about'
+    | '/_shell/admin'
+    | '/_shell/dashboard'
+    | '/_shell/profile'
+    | '/_shell/report'
+    | '/_shell/complaints/$id'
+    | '/_shell/complaints/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ShellRoute: typeof ShellRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +144,90 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_shell': {
+      id: '/_shell'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof ShellRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_shell/about': {
+      id: '/_shell/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof ShellAboutRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/admin': {
+      id: '/_shell/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof ShellAdminRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/dashboard': {
+      id: '/_shell/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof ShellDashboardRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/profile': {
+      id: '/_shell/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ShellProfileRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/report': {
+      id: '/_shell/report'
+      path: '/report'
+      fullPath: '/report'
+      preLoaderRoute: typeof ShellReportRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/complaints/': {
+      id: '/_shell/complaints/'
+      path: '/complaints'
+      fullPath: '/complaints/'
+      preLoaderRoute: typeof ShellComplaintsIndexRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/complaints/$id': {
+      id: '/_shell/complaints/$id'
+      path: '/complaints/$id'
+      fullPath: '/complaints/$id'
+      preLoaderRoute: typeof ShellComplaintsIdRouteImport
+      parentRoute: typeof ShellRoute
+    }
   }
 }
 
+interface ShellRouteChildren {
+  ShellAboutRoute: typeof ShellAboutRoute
+  ShellAdminRoute: typeof ShellAdminRoute
+  ShellDashboardRoute: typeof ShellDashboardRoute
+  ShellProfileRoute: typeof ShellProfileRoute
+  ShellReportRoute: typeof ShellReportRoute
+  ShellComplaintsIdRoute: typeof ShellComplaintsIdRoute
+  ShellComplaintsIndexRoute: typeof ShellComplaintsIndexRoute
+}
+
+const ShellRouteChildren: ShellRouteChildren = {
+  ShellAboutRoute: ShellAboutRoute,
+  ShellAdminRoute: ShellAdminRoute,
+  ShellDashboardRoute: ShellDashboardRoute,
+  ShellProfileRoute: ShellProfileRoute,
+  ShellReportRoute: ShellReportRoute,
+  ShellComplaintsIdRoute: ShellComplaintsIdRoute,
+  ShellComplaintsIndexRoute: ShellComplaintsIndexRoute,
+}
+
+const ShellRouteWithChildren = ShellRoute._addFileChildren(ShellRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ShellRoute: ShellRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
