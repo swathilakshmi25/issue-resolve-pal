@@ -34,7 +34,7 @@ function Detail() {
   if (!c) return <EmptyState title="Complaint not found" text={`We couldn't find ${id}.`} action={<Button asChild variant="outline"><Link to="/complaints">Back to complaints</Link></Button>} />;
 
   const order: Record<string, number> = { Submitted: 0, "Under Review": 3, Assigned: 2, "In Progress": 4, Resolved: 5 };
-  const reached = Math.max(1, order[c.status]);
+  const reached = Math.max(1, order[c.status] ?? 0);
 
   return (
     <div className="space-y-5">

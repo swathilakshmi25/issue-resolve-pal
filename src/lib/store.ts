@@ -1,7 +1,7 @@
 import { useSyncExternalStore } from "react";
 import { demoComplaints, type Analysis, type Complaint, type Status } from "./fixmate";
 
-export interface Notification { id: string; text: string; complaintId?: string; created_at: string; read: boolean }
+export interface Notification { id: string; text: string; complaintId?: string | undefined; created_at: string; read: boolean }
 export interface Profile { name: string; email: string; title: string; bio: string; skills: string[] }
 export interface State {
   complaints: Complaint[];
