@@ -12,7 +12,7 @@ Routing rules: ${ROUTING.map((r) => `${r.keywords.slice(0, 5).join("/")} -> ${r.
 Return ONLY a JSON object with keys: title, summary, category, department, priority, urgency_reason, sentiment, keywords (array of strings), professional_complaint, action_plan (array of 3-5 strings), recommended_next_step, estimated_resolution_time (e.g. "4–8 hours"), confidence (integer 0-100).`;
 
 async function callAI(messages: { role: string; content: string }[], json: boolean) {
-  const key = process.env.LOVABLE_API_KEY;
+  const key = process.env["LOVABLE_API_KEY"];
   if (!key) throw new Error("NO_KEY");
   const res = await fetch(GATEWAY, {
     method: "POST",

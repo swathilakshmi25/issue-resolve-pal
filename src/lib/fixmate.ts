@@ -80,7 +80,7 @@ export function fallbackAnalyze(text: string, location = ""): Analysis {
     Medium: "The issue affects routine activities but has no immediate deadline mentioned.",
     Low: "The issue appears to be a minor inconvenience or suggestion.",
   };
-  const first = text.trim().split(/[.!?]/)[0].slice(0, 70);
+  const first = (text.trim().split(/[.!?]/)[0] ?? "").slice(0, 70);
   const title = first.length > 5 ? first.charAt(0).toUpperCase() + first.slice(1) : `${category} issue`;
   const where = location ? ` at ${location}` : "";
   const negative = /(not|never|again|third time|frustrat|angry|worst)/.test(t);
@@ -122,8 +122,8 @@ function demo(id: number, text: string, location: string, status: Status, hoursA
   );
   return {
     ...a, id: `FM-${id}`, original_text: text, location, contact: "Email", anonymous: false, status,
-    created_at: ago(hoursAgo), updated_at: updates[updates.length - 1].created_at,
-    resolved_at: status === "Resolved" ? updates[updates.length - 1].created_at : null,
+    created_at: ago(hoursAgo), updated_at: updates[updates.length - 1]!.created_at,
+    resolved_at: status === "Resolved" ? updates[updates.length - 1]!.created_at : null,
     resolution_notes: status === "Resolved" ? "Issue fixed and verified by the department." : "", updates,
   };
 }

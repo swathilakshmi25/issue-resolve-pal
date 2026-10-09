@@ -52,7 +52,7 @@ function Admin() {
         <StatCard label="Total" value={cs.length} icon={FileText} />
         <StatCard label="Open" value={cs.length - d.resolved} icon={Clock} tone="glow" />
         <StatCard label="Resolved" value={d.resolved} icon={CheckCircle2} tone="success" />
-        <StatCard label="Critical" value={d.byPri[3].value} icon={AlertOctagon} tone="critical" />
+        <StatCard label="Critical" value={d.byPri[3]?.value ?? 0} icon={AlertOctagon} tone="critical" />
         <StatCard label="Avg. Resolution" value={`${d.avgH.toFixed(1)}h`} icon={Timer} hint="Resolved complaints only" />
       </div>
 
